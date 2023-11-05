@@ -63,9 +63,27 @@ async function run() {
         };
       }
     });
+
+    app.post('/catagory', async(req, res) =>{
+      try {
+        const body = req.body;
+        const result = await catagoryCollection.insertOne(body);
+        res.send(result);
+      } catch {
+        (error) => {
+          res.status(500).send("Internal Server Error");
+        };
+      }
+    })
     // catagory collection code end
 
     // my bids collection code start
+    app.get('/myBids', async(res, req) =>{
+      const query = req.query.email;
+      console.log(query)
+      const result = await myBidsCollection.find().toArray();
+      res.send(result)
+    })
     app.post('/myBids', async(req, res) =>{
       try {
         const body = req.body;
