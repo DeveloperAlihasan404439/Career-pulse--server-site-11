@@ -38,7 +38,7 @@ async function run() {
     const catagoryCollection = client.db("appliction_job").collection("catagory");
     const myBidsCollection = client.db("appliction_job").collection("My_Bids");
 
-    // catagory code start
+    // catagory collection code start
     app.get("/catagory/:type", async (req, res) => {
       try {
         const type = req.params.type;
@@ -63,9 +63,21 @@ async function run() {
         };
       }
     });
-    // catagory code end
+    // catagory collection code end
 
-    
+    // my bids collection code start
+    app.post('/myBids', async(req, res) =>{
+      try {
+        const body = req.body;
+        const result = await myBidsCollection.insertOne(body);
+        res.send(result);
+      } catch {
+        (error) => {
+          res.status(500).send("Internal Server Error");
+        };
+      }
+    })
+    // my bids collection code end
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
