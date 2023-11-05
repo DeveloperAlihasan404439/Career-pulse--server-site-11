@@ -63,6 +63,20 @@ async function run() {
         };
       }
     });
+    
+    app.get('/catagory', async(req, res) =>{
+      try {
+        const query = req.query.email;
+        const filter = {email: query}
+        console.log(filter)
+        const result = await catagoryCollection.find(filter).toArray();
+        res.send(result)
+      } catch {
+        (error) => {
+          res.status(500).send("Internal Server Error");
+        };
+      }
+    })
 
     app.post('/catagory', async(req, res) =>{
       try {
@@ -78,12 +92,6 @@ async function run() {
     // catagory collection code end
 
     // my bids collection code start
-    app.get('/myBids', async(res, req) =>{
-      const query = req.query.email;
-      console.log(query)
-      const result = await myBidsCollection.find().toArray();
-      res.send(result)
-    })
     app.post('/myBids', async(req, res) =>{
       try {
         const body = req.body;
