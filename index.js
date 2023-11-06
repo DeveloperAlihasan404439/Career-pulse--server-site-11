@@ -76,7 +76,27 @@ async function run() {
         };
       }
     })
+    // updated my post job 
+    app.put('/catagory/updated', async(req, res) =>{
+      try {
+        const id = req.query.id;
+        const filter = {_id: new ObjectId(id)}
 
+        const body = req.body;
+        const updateDoc = {
+          $set: {
+            plot: `A harvest of random numbers, such as: ${Math.random()}`
+          },
+        };
+        // const result = await catagoryCollection.find(filter).toArray();
+        res.send(body)
+      } catch {
+        (error) => {
+          res.status(500).send("Internal Server Error");
+        };
+      }
+    })
+    // delete my job 
     app.delete('/catagory/delete', async(req, res) =>{
       try {
         const id = req.query.id;
@@ -89,7 +109,7 @@ async function run() {
         };
       }
     })
-
+    // added the job post
     app.post('/catagory', async(req, res) =>{
       try {
         const body = req.body;
