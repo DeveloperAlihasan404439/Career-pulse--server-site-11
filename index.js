@@ -140,6 +140,25 @@ async function run() {
         };
       }
     })
+    app.patch('/myBids/reject', async(req, res)=>{
+      try {
+        const id = req.query.id;
+        const filter = {_id: id}
+        const body = req.body;
+        const updatedMyBids ={
+          $set: {
+            status: 'Canceled',
+          }
+        }
+        const result = await myBidsCollection.updateOne(filter, updatedMyBids)
+        console.log(result);
+        res.send(result)
+      } catch {
+        (error) => {
+          res.status(500).send("Internal Server Error");
+        };
+      }
+    })
     app.post('/myBids', async(req, res) =>{
       try {
         const body = req.body;
