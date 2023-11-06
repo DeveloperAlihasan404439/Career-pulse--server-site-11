@@ -68,9 +68,21 @@ async function run() {
       try {
         const query = req.query.email;
         const filter = {email: query}
-        console.log(filter)
         const result = await catagoryCollection.find(filter).toArray();
         res.send(result)
+      } catch {
+        (error) => {
+          res.status(500).send("Internal Server Error");
+        };
+      }
+    })
+
+    app.delete('/catagory/delete', async(req, res) =>{
+      try {
+        const id = req.query.id;
+        const filter = {_id: new ObjectId(id)}
+        const result = await catagoryCollection.deleteOne(filter);
+        res.send(result) 
       } catch {
         (error) => {
           res.status(500).send("Internal Server Error");
