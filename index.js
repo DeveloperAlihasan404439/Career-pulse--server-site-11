@@ -81,15 +81,22 @@ async function run() {
       try {
         const id = req.query.id;
         const filter = {_id: new ObjectId(id)}
-
         const body = req.body;
         const updateDoc = {
           $set: {
-            plot: `A harvest of random numbers, such as: ${Math.random()}`
+            job_title:body.job_title,
+            email:body.email,
+            deadline:body.deadline,
+            description: body.description,
+            category: body.category,
+            type: body.type,
+            minimum_price: body.minimum_price,
+            maximum_price: body.maximum_price,
           },
         };
-        // const result = await catagoryCollection.find(filter).toArray();
-        res.send(body)
+        const result = await catagoryCollection.updateOne(filter, updateDoc);
+        console.log(result);
+        res.send(result)
       } catch {
         (error) => {
           res.status(500).send("Internal Server Error");
