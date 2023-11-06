@@ -95,7 +95,6 @@ async function run() {
           },
         };
         const result = await catagoryCollection.updateOne(filter, updateDoc);
-        console.log(result);
         res.send(result)
       } catch {
         (error) => {
@@ -131,6 +130,16 @@ async function run() {
     // catagory collection code end
 
     // my bids collection code start
+    app.get('/myBids', async(req, res)=>{
+      try {
+        const result = await myBidsCollection.find().toArray()
+        res.send(result)
+      } catch {
+        (error) => {
+          res.status(500).send("Internal Server Error");
+        };
+      }
+    })
     app.post('/myBids', async(req, res) =>{
       try {
         const body = req.body;
