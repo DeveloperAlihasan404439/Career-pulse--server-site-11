@@ -11,6 +11,7 @@ require("dotenv").config();
 app.use(
   cors({
     origin: [
+      "http://localhost:5173",
       "https://authfirebaseassignament11.web.app",
       "https://authfirebaseassignament11.firebaseapp.com",
     ],
